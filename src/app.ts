@@ -1,11 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import { HttpError } from "http-errors";
 import globalErrorHandler from "./middleware/globalErrorHandler";
+import userRouter from "./user/userRouter";
 
 const app = express();
 
 // routes
-app.use("/", () => {});
+app.use("/api/users", userRouter);
 
 // middleware- function that placed between router and handler
 // global error handler - should be placed at last after all routes
