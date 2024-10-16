@@ -53,4 +53,43 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { createUser };
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
+  // validation
+  if (!email || !password) {
+    return next(createHttpError(400, "email, password is required"));
+  }
+  let user;
+  try {
+    // check user exists in db
+    user = await userModel.findOne({ email });
+
+    if (!user) {
+      return next(createHttpError(404, "user not exist"));
+    }
+  } catch (error) {
+    return next(createHttpError(500, "error while getting user"));
+  }
+  try {
+    // now check password
+    const isMatch = await bcrypt.compare(password, user?.password);
+
+    if (!isMatch) {
+      return next(createHttpError(400, "username password is incorrect"));
+    }
+  } catch (error) {
+    return next(createHttpError(500, "error while matching password"));
+  }
+
+  try {
+    const token = sign({ sub: user._id }, config.SECRET as string, {
+      expiresIn: "7d",
+    });
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    return next(createHttpError(500, "error while sign token"));
+  }
+};
+
+export { createUser, loginUser };
