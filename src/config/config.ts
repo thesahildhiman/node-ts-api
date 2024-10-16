@@ -4,6 +4,7 @@ dotenv();
 const _config = {
   PORT: process.env.PORT,
   DB_URL: process.env.MONGO_URI,
+  SECRET: process.env.SECRET,
   API_KEY: "",
 };
 
