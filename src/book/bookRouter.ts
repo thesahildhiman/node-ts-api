@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { createBook } from "./bookController";
+import { createBook, updateBook } from "./bookController";
 import multer from "multer";
 import path from "path";
 import createHttpError from "http-errors";
@@ -52,6 +52,8 @@ bookRouter.post(
   uploadMiddleware,
   createBook as any
 );
+
+bookRouter.put("/update/:id", auth, updateBook as any);
 
 export default bookRouter;
 // upload.single() - used to upload single file
