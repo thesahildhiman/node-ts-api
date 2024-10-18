@@ -3,6 +3,7 @@ import { createBook } from "./bookController";
 import multer from "multer";
 import path from "path";
 import createHttpError from "http-errors";
+import auth from "../middleware/auth";
 
 const bookRouter = express.Router();
 
@@ -47,6 +48,7 @@ bookRouter.post(
   //     { name: "coverImage", maxCount: 1 },
   //     { name: "file", maxCount: 1 },
   //   ]),
+  auth,
   uploadMiddleware,
   createBook as any
 );
@@ -54,4 +56,4 @@ bookRouter.post(
 export default bookRouter;
 // upload.single() - used to upload single file
 // upload.fields() - used to array of files in multipart/form data
-// multer first of all stores uploaded files locally and then auto delete these files
+// multer first of all stores uploaded files locally and then we need to delete these files using fs module
