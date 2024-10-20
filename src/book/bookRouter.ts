@@ -1,5 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { createBook, updateBook } from "./bookController";
+import {
+  createBook,
+  getSingleBook,
+  listBooks,
+  updateBook,
+} from "./bookController";
 import multer from "multer";
 import path from "path";
 import createHttpError from "http-errors";
@@ -54,6 +59,10 @@ bookRouter.post(
 );
 
 bookRouter.put("/update/:id", auth, updateBook as any);
+
+bookRouter.get("/", auth, listBooks as any);
+
+bookRouter.get("/bookId", auth, getSingleBook as any);
 
 export default bookRouter;
 // upload.single() - used to upload single file
