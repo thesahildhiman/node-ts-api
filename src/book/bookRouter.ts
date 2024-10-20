@@ -60,9 +60,9 @@ bookRouter.post(
 
 bookRouter.put("/update/:id", auth, updateBook as any);
 
-bookRouter.get("/", auth, listBooks as any);
+bookRouter.get("/", listBooks as any); // any one can see book listing
 
-bookRouter.get("/bookId", auth, getSingleBook as any);
+bookRouter.get("/bookId", getSingleBook as any); // anyone can see book details
 
 export default bookRouter;
 // upload.single() - used to upload single file
