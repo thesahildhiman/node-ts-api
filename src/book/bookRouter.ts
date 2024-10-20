@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import {
   createBook,
+  deleteBook,
   getSingleBook,
   listBooks,
   updateBook,
@@ -63,6 +64,8 @@ bookRouter.put("/update/:id", auth, updateBook as any);
 bookRouter.get("/", listBooks as any); // any one can see book listing
 
 bookRouter.get("/bookId", getSingleBook as any); // anyone can see book details
+
+bookRouter.delete("/bookId", auth, deleteBook as any);
 
 export default bookRouter;
 // upload.single() - used to upload single file
