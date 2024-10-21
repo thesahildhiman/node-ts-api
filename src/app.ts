@@ -3,8 +3,14 @@ import { HttpError } from "http-errors";
 import globalErrorHandler from "./middleware/globalErrorHandler";
 import userRouter from "./user/userRouter";
 import bookRouter from "./book/bookRouter";
+import cors from "cors";
+import { config } from "./config/config";
 
 const app = express();
+
+// cors
+app.use(cors({ origin: config.FRONTEND_URL }));
+
 app.use(express.json());
 
 // routes
